@@ -4,8 +4,12 @@ GET http://localhost:8080/api/usuarios
 ### Obtener todos los usuarios de Armenia
 GET http://localhost:8080/api/usuarios?ciudad=Armenia
 
-### Obtener un usuario por su id
-GET http://localhost:8080/api/usuarios/1
+### Obtener un usuario por su id (Juan Actualizado)
+GET http://localhost:8080/api/usuarios/97aa6114-3870-4dc6-aef6-93df03c68ed4
+
+### Obtener un usuario por su id (Yovany)
+GET http://localhost:8080/api/usuarios/081c4e20-d8b7-41e0-80c3-3ec8190ce753
+
 
 ### Crear un usuario
 POST http://localhost:8080/api/usuarios
@@ -25,7 +29,7 @@ PUT http://localhost:8080/api/usuarios
 Content-Type: application/json
 
 {
-  "id": 1,
+  "id": "1",
   "nombre": "Daniela",
   "ciudad": "Tuluá",
   "direccion": "Calle 123",
