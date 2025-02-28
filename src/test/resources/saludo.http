@@ -1,0 +1,9 @@
+###
+GET http://localhost:8080/saludo/saludar
+
+
+###
+GET http://localhost:8080/saludo/Daniela
+
+###
+POST http://localhost:8080/saludo/saludar
