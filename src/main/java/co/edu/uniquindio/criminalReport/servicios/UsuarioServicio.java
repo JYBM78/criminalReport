@@ -11,6 +11,11 @@ import co.edu.uniquindio.criminalReport.dto.UsuarioDTO;
 
 import java.util.List;
 
+/*
+La idea es que esta interface tenga la definición de los métodos que deben ser implementados
+ con su respectiva lógica de negocio.
+ */
+
 public interface UsuarioServicio {
 
     void crear(CrearUsuarioDTO cuenta) throws Exception;
