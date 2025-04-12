@@ -1,11 +1,9 @@
 package co.edu.uniquindio.criminalReport.controladores;
 
-import co.edu.uniquindio.criminalReport.dto.CrearUsuarioDTO;
-import co.edu.uniquindio.criminalReport.dto.EditarUsuarioDTO;
-import co.edu.uniquindio.criminalReport.dto.MensajeDTO;
-import co.edu.uniquindio.criminalReport.dto.UsuarioDTO;
+import co.edu.uniquindio.criminalReport.dto.*;
 import co.edu.uniquindio.criminalReport.servicios.UsuarioServicio;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,50 +13,72 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/usuarios") // cuando se pida la url http://localhost:8080/api/usuarios será el controlador REST que estamos programando quien responda ante las peticiones realizadas.
+@RequestMapping("/api/usuarios")
 public class UsuarioControlador {
 
-    private final UsuarioServicio usuarioServicio; // Variable de tipo UsuarioServicio, para que funcione la interface UsuarioiServicio, con la definición de los métodos implemenmtados en la lógica del negocio.
+    private final UsuarioServicio usuarioServicio;
 
-    /*
-    métodos para cada servicio de negocio de los usuarios que sea pertinente para la API.
-    A manera de ejemplo se hará el controlador implementando solamente los métodos para hacer un CRUD básico en la entidad.
-     */
-    @PostMapping
-    public ResponseEntity<MensajeDTO<String>> crear(@Valid @RequestBody CrearUsuarioDTO cuenta) throws Exception{
-        usuarioServicio.crear(cuenta);
-        return ResponseEntity.status(201).body(new MensajeDTO<>(false, "Su registro ha sido exitoso"));
-    }
-    @SecurityRequirement(name = "bearerAuth")
-    @GetMapping("/{id}")
-    public ResponseEntity<MensajeDTO<UsuarioDTO>> obtener(@PathVariable String id) throws Exception{
-        UsuarioDTO info = usuarioServicio.obtener(id);
-        return ResponseEntity.ok(new MensajeDTO<>(false, info));
-    }
-
-    @SecurityRequirement(name = "bearerAuth")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<MensajeDTO<String>> eliminar(@PathVariable String id) throws Exception{
-        usuarioServicio.eliminar(id);
-        return ResponseEntity.ok(new MensajeDTO<>(false, "Cuenta eliminada exitosamente"));
-    }
-
-    @GetMapping
-    public ResponseEntity<MensajeDTO<List<UsuarioDTO>>> listarTodos(
-            @RequestParam(required = false) String nombre,
-            @RequestParam(required = false) String ciudad
-    ){
-        List<UsuarioDTO> lista = usuarioServicio.listarTodos(nombre, ciudad);
+    @GetMapping("/{email}/reportes")
+    public ResponseEntity<MensajeDTO<List<InfoReporteDTO>>> obtenerReportesUsuario(@PathVariable String id) throws Exception {
+        List<InfoReporteDTO> lista = usuarioServicio.obtenerReportesUsuario(id);
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));
     }
 
-    @SecurityRequirement(name = "bearerAuth")
-    @PutMapping
-    public ResponseEntity<MensajeDTO<String>> editarCuenta(@Valid @RequestBody EditarUsuarioDTO cuenta) throws Exception{
-        usuarioServicio.editar(cuenta);
-        return ResponseEntity.ok(new MensajeDTO<>(false, "Cuenta editada exitosamente"));
+    @GetMapping("/{id}")
+    public ResponseEntity<MensajeDTO<UsuarioDTO>> obtener(@PathVariable String id) throws Exception {
+        UsuarioDTO dto = usuarioServicio.obtener(id);
+        return ResponseEntity.ok(new MensajeDTO<>(false, dto));
     }
 
+    // Listar usuarios con filtros y paginación
+    @GetMapping
+    public ResponseEntity<MensajeDTO<List<UsuarioDTO>>> listarTodos(
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) String ciudad,
+            @RequestParam(defaultValue = "0") int pagina
+    ) {
+        List<UsuarioDTO> lista = usuarioServicio.listarTodos(nombre, ciudad, pagina);
+        return ResponseEntity.ok(new MensajeDTO<>(false, lista));
+    }
+
+    // Registro de usuario
+    @PostMapping
+    public ResponseEntity<MensajeDTO<String>> crear(@Valid @RequestBody CrearUsuarioDTO cuenta) throws Exception {
+        usuarioServicio.crear(cuenta);
+        return ResponseEntity.ok(new MensajeDTO<>(false, "Registro exitoso. Verifica tu correo para activar tu cuenta."));
+    }
+
+    @PostMapping("/codigoVerificacion")
+    public ResponseEntity<MensajeDTO<String>> enviarCodigoVerificacion(@RequestBody EnviarCodigoDTO enviarCodigoDTO) throws Exception {
+        usuarioServicio.enviarCodigoVerificacion(enviarCodigoDTO);
+        return ResponseEntity.ok(new MensajeDTO<>(false, "Codigo enviado correctamente."));
+    }
+
+    // Edición de perfil
+    @PutMapping("/{id}")
+    public ResponseEntity<MensajeDTO<String>> editar(@PathVariable String id, @Valid @RequestBody EditarUsuarioDTO editarUsuarioDTO) throws Exception {
+        usuarioServicio.editar(id,editarUsuarioDTO);
+        return ResponseEntity.ok(new MensajeDTO<>(false, "Perfil actualizado correctamente."));
+    }
+
+    @PutMapping("/{email}/password")
+    public ResponseEntity<MensajeDTO<String>> cambiarPassword(@RequestBody CambiarPasswordDTO cambiarPasswordDTO) throws Exception {
+        usuarioServicio.cambiarPassword(cambiarPasswordDTO);
+        return ResponseEntity.ok(new MensajeDTO<>(false, "Password cambiado correctamente."));
+    }
+
+    @PutMapping("/{email}/activar")
+    public ResponseEntity<MensajeDTO<String>> activarCuenta(@RequestBody ActivarCuentaDTO activarCuentaDTO) throws Exception {
+        usuarioServicio.activarCuenta(activarCuentaDTO);
+        return ResponseEntity.ok(new MensajeDTO<>(false, "Activado correctamente."));
+    }
+
+    // Eliminación lógica de cuenta
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MensajeDTO<String>> eliminar(@PathVariable String id) throws Exception {
+        usuarioServicio.eliminar(id);
+        return ResponseEntity.ok(new MensajeDTO<>(false, "Cuenta eliminada correctamente."));
+    }
 
 }
 

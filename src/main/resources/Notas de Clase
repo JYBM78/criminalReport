@@ -1,0 +1,146 @@
+- CÓDIGOS DE ESTADO HTTP: https://developer.mozilla.org/es/docs/Web/HTTP/Status
+
+- Un cliente o App, se comunica con una API, que tiene controladores.
+
+    - CONTROLADORES: métodos que no tienen lógica de negocio, simplemente se hace el llamado
+        correspondiente a cada método que está programado en los servicios y se le pasan
+        los mismos parámetros.
+        En los controladores hay, lógica de la app y el mapeo de las peticiones (traducir Json)
+
+    - SERVICIOS: Como la API por si sola no sirve, ya solo tiene una interfaz con los métodos
+        que se pueden ejecutar. Entonces la lógica detrás de los métodos está en la capa Servicios.
+        Pero los servicios por si solos tampoco sirven, por que si debo acceder a una BD, se
+        debe hacer a través de los Repositorios.
+
+    - REPOSITORIOS = Interacciones de BD, de Spring Boot, que a través de un modelado de datos
+        acceder a la información que esté en MySQL, PostgreSQL, MongoDB, OracleDB, etc
+
+
+- INTERFACE = Para que un controlador funcione se debe crear una interface con el nombre
+    "UsuarioServicio", si el controlador se llama "UsuarioControlador" en el paquete
+    co.edu.uniquindio.nombreProyecto.servicios. La idea es que esta interface tenga la
+    definición de los métodos que deben ser implementados con su respectiva lógica de negocio.
+
+- DTO (Data Transfer Objets) es una clase que encapsula la información necesaria para cada
+    requisito específico de la aplicación, separando la lógica de negocio de la
+    estructura de los datos que se intercambian entre el cliente y el servidor.
+    Dado que los DTO son objetos que no tienen lógica y solo sirven para encapsular
+    atributos, podemos hacer uso de los record de Java.
+
+- @RestController = Indica que esta clase es un controlador REST, lo que significa que
+    manejará solicitudes HTTP y devolverá respuestas en formato de texto o JSON. Los métodos están
+    expuestos a la API para que cualquiera los llame.
+
+- @RequiredArgsConstructor = Para que la variable se inicialice, genera automáticamente un
+    constructor con los argumentos requeridos
+
+- @RequestMapping("/saludo") para que todas las rutas comiencen con /saludo.
+    Esto permite que las rutas queden más organizadas y evitamos posibles conflictos con
+    otras rutas en la aplicación.
+
+- @GetMapping: Especifica que los métodos dentro del controlador responderán a solicitudes HTTP GET.
+- @PostMapping: Especifica que los métodos dentro del controlador responderán a solicitudes HTTP Post.
+- @DeletMapping: Especifica que los métodos dentro del controlador responderán a solicitudes HTTP Delet.
+- @PutMapping: Especifica que los métodos dentro del controlador responderán a solicitudes HTTP Put.
+
+- @RequestParam = se usa para enviar parámetros por la url a la petición.
+
+- @PathVariable = Si la información llega por la url
+    El nombre del atributo debe coincidir con el nombre que está entre llaves en la url
+    del mapping. Por ejemplo, si tenemos @PathVariable int id, entonces la url sería "/{id}".
+    Ej: @GetMapping("/{id}")
+        public UsuarioDTO obtener(@PathVariable String id) throws Exception{
+           return usuarioServicio.obtener(id);
+
+- @RequestBody = Si la información llega dentro del cuerpo de la petición
+  - @Valid acompaña de la anotación @RequestBody (para que tenga en cuenta
+    las anotaciones de validación de los atributos de los DTO).
+
+- @Service = Anotación de Spring que indica que esta clase es un servicio.
+    Se usa en la capa de servicio para manejar la lógica de negocio.
+
+- EXCEPCIONES
+    - @ExceptionHandler = Para diferenciar cada método se hace uso de la anotación
+        - NoResourceFoundException: Excepción que se lanza cuando se trata de acceder a un
+         recurso que no existe.
+        - Exception: Excepción general de Java. Lo ideal es tener excepciones propias para
+         cada tipo de error y no ponerle a todas las excepciones simplemente Exception.
+        - MethodArgumentNotValidException: Excepción que se lanza cuando no se cumple
+          alguna validación puesta en los DTO (@NotNull, @Email, @Max, etc..).
+          Para este caso debe crear un nuevo DTO con el nombre: ValidacionDTO,
+          este record debe debe tener dos String: campo y mensaje.
+
+- VALIDACIONES
+    - Anotaciones que se usa para validar condiciones, formatos de textos y lanza una excepción automáticamente.
+        - @NotBlank, @Length(max = 10), @Length(min = 2, max = 15), @Email,
+        - @Pattern = permite patrones más puntuales. Ej: un @ de teléfono que empiece por 3, tenga 10 digitos, etc.
+    - Para más información sobre las anotaciones de validaciones:
+
+      ●	https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/package-summary.html
+
+- TEST
+    Para probar cada ruta, cree un nuevo archivo en la carpeta test/resources que se llame
+    usuarios.http y que tenga lo siguiente:
+
+    - ### Obtener todos los usuarios
+      GET http://localhost:8080/api/usuarios
+
+    - ### Obtener un usuario por su id
+      GET http://localhost:8080/api/usuarios/1
+
+    - ### Crear un usuario
+      POST http://localhost:8080/api/usuarios
+      Content-Type: application/json
+      /*
+      En JSON las llaves {} encapsulan un objeto
+              Los corchetes encapsulan múltiples elementos (cadenas, números, fechas)
+      */
+
+      {
+       "nombre": "Carlos",     // Clave Valor
+       "ciudad": "Armenia",
+       "direccion":{     // Si el objeto por dentro tiene otros objetos, se puede representar así:
+              “direccion”: "Calle 123",
+              “Ciudad”: “Armenia”,
+      }
+       "email": "carlos@email.com",
+       "password": "123456"
+       “telefonos”: [“123”, “456”, “789”] // Lo que está guardado dentro de los corchetes [],
+                                          // hace parte de una lista. O también, [{sdfs},{sdfa},{sdfsa}]
+
+      }
+
+    - ### Actualizar un usuario
+      PUT http://localhost:8080/api/usuarios
+      Content-Type: application/json
+
+      {
+       "id": 1,
+       "nombre": "Carlos",
+       "ciudad": "Armenia",
+       "direccion": "Nueva dirección"
+      }
+
+    - ### Eliminar un usuario
+      DELETE http://localhost:8080/api/usuarios/1
+
+- RESPUESTAS
+
+    - ResponseEntity = Es un objeto de Java para construir los mensajes HTTP, retornando un mensaje (ok) 201,
+    y el mensaje para el usuario. o retorna los datos pedidos.
+
+    - RestExceptionHandler = Cuando no encuentra un recurso o ruta, hay un error grave o no se cumple una restricción
+        puedo personalizar el mensaje de salida
+
+- CONEXIÓN:
+
+    - http://localhost:8080/swagger-ui/index.html
+    - http://localhost:8080
+    - http://localhost:8080/swagger-ui.html
+
+- # Correo desde el cual se enviarán los mensajes
+  mail.smtp.username=proavanzada@gmail.com
+
+  # Contraseña de la cuenta de correo (⚠️ se recomienda mover esto a variables de entorno)
+  mail.smtp.password=Avanzada1.
+

@@ -11,7 +11,7 @@ Content-Type: application/json
     },
     "rutaImagenes": ["imagen1.jpg", "imagen2.jpg"],
     "categoria": "MASCOTA",
-    "idUsuario": "12121212"
+    "idCliente": "12121212"
 }
 
 ### Probar las demás funcionalidades
