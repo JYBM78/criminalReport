@@ -1,12 +1,33 @@
 package co.edu.uniquindio.criminalReport.modelo.enums;
 
 public enum Ciudad {
+    ARAUCA,
     ARMENIA,
+    BARRANQUILLA,
+    BOGOTÁ,
     BUCARAMANGA,
     CALI,
-    IBAGUE,
-    MEDELLIN,
+    CARTAGENA,
+    CÚCUTA,
+    FLORENCIA,
+    IBAGUÉ,
+    INÍRIDA,
+    LETICIA,
     MANIZALES,
-    PEREIRA
+    MEDELLÍN,
+    MITÚ,
+    MOCOA,
+    MONTERÍA,
+    NEIVA,
+    PASTO,
+    PEREIRA,
+    POPAYÁN,
+    QUIBDÓ,
+    RIOHACHA,
+    SINCELEJO,
+    TUNJA,
+    VALLEDUPAR,
+    VILLAVICENCIO,
+    YOPAL
 
 }

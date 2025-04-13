@@ -21,4 +21,7 @@ public interface ReporteRepositorio extends MongoRepository<Reporte, ObjectId> {
 
     // Buscar reportes en una categoría específica
     List<Reporte> findByIdCategoria(ObjectId idCategoria);
+
+    List<Reporte> findByEmail(String email); // Este metodo buscará reportes por el email del usuario
+
 }

@@ -3,6 +3,7 @@ package co.edu.uniquindio.criminalReport.servicios.impl;
 import co.edu.uniquindio.criminalReport.dto.*;
 import co.edu.uniquindio.criminalReport.excepciones.RecursoNoEncontradoException;
 import co.edu.uniquindio.criminalReport.mapper.UsuarioMapper;
+import co.edu.uniquindio.criminalReport.modelo.documents.Reporte;
 import co.edu.uniquindio.criminalReport.modelo.documents.Usuario;
 import co.edu.uniquindio.criminalReport.modelo.enums.EstadoUsuario;
 import co.edu.uniquindio.criminalReport.modelo.validacion.CodigoValidacion;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -109,10 +111,12 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     }
 
     @Override
-    public List<InfoReporteDTO> obtenerReportesUsuario(String id) {
+    public List<InfoReporteDTO> obtenerReportesUsuario(String email) {
 
         return null;
     }
+
+
 
     private boolean existeEmail(String email) {
         return usuarioRepositorio.findByEmail(email).isPresent();
