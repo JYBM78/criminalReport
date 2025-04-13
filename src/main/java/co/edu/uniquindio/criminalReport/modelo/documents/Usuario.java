@@ -41,6 +41,8 @@ public class Usuario {
 
     private LocalDateTime fechaRegistro;
 
+    private int cantidadReportes = 0;
+
     // Getters, setters y constructores
 
 }

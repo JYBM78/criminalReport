@@ -52,18 +52,34 @@ public class CategoriaServicioImpl implements CategoriaServicio {
         }
         categoriaRepositorio.deleteById(objectId);
     }
-
+/*
     @Override
     public List<CategoriaDTO> listar() {
         return categoriaRepositorio.findAll()
                 .stream()
                 .map(categoriaMapper::toDTO)
                 .toList();
+    }*/
+@Override
+public List<CategoriaDTO> listar(String filtro) {
+    List<Categoria> categorias;
+
+    if (filtro != null && !filtro.isBlank()) {
+        categorias = categoriaRepositorio.findByNombreContainingIgnoreCase(filtro);
+    } else {
+        categorias = categoriaRepositorio.findAll();
     }
+
+    return categorias.stream()
+            .map(categoriaMapper::toDTO)
+            .toList();
+}
 
     @Override
     public InfocategoriaDTO obtenerCategoria(String id) throws Exception {
         return null;
     }
+
+
 
 }

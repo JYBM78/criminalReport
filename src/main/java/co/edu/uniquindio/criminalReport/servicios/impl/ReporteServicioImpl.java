@@ -12,6 +12,7 @@ import co.edu.uniquindio.criminalReport.repositorios.UsuarioRepositorio;
 import co.edu.uniquindio.criminalReport.servicios.ReporteServicio;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -30,20 +31,34 @@ public class ReporteServicioImpl implements ReporteServicio {
     private final WebSocketNotificationService webSocketNotificationService;
 
     @Override
-    public void crearReporte(CrearReporteDTO dto) {
+    public String crearReporte(CrearReporteDTO dto) {
         // Buscar usuario o lanzar excepción personalizada
         Usuario usuario = obtenerClienteActivo(dto.idCliente());
 
         // Crear el documento Reporte a partir del DTO
         Reporte reporte = reporteMapper.toDocument(dto);
         asignarDatosAdicionales(reporte);
+        reporte.setFecha(LocalDateTime.now()); // nuevo 12/04/25
+        reporte.setEstadoActual(EstadoReporte.PENDIENTE); // nuevo 12/04/25
 
         // Guardar el reporte en la base de datos
         reporteRepositorio.save(reporte);
 
         // Enviar notificación por WebSocket
         notificarNuevoReporte(reporte);
+
+        // nuevo 12/04/25
+
+        // Aumentar el contador de reportes
+        usuario.setCantidadReportes(usuario.getCantidadReportes() + 1);
+        usuarioRepositorio.save(usuario);
+
+        // Retornar el ID del reporte creado
+        return reporte.getId().toHexString();
+
     }
+
+
 
     @Override
     public void actualizarReporte(String id, EditarReporteDTO dto) throws Exception {
@@ -113,9 +128,31 @@ public class ReporteServicioImpl implements ReporteServicio {
     }
 
     @Override
-    public void cambiarEstadoReporte(String id, CambiarEstadoDTO cambiarEstadoDTO) {
+    public void cambiarEstadoReporte(String id, CambiarEstadoDTO cambiarEstadoDTO) throws Exception {
+        // Validar que el ID tenga formato correcto
+        if (!ObjectId.isValid(id)) {
+            throw new IllegalArgumentException("El ID del reporte no es válido: " + id);
+        }
 
+        // Buscar el reporte por ID
+        Reporte reporte = reporteRepositorio.findById(new ObjectId(id))
+                .orElseThrow(() -> new NoSuchElementException("No se encontró un reporte con el id: " + id));
+
+        // Cambiar el estado del reporte
+        reporte.setEstadoActual(cambiarEstadoDTO.nuevoEstado());
+
+        // Guardar los cambios
+        reporteRepositorio.save(reporte);
+
+        // Notificar si es necesario
+        NotificacionDTO notificacion = new NotificacionDTO(
+                "Cambio de Estado",
+                "El estado del reporte ha sido actualizado a: " + cambiarEstadoDTO.nuevoEstado(),
+                "reportes"
+        );
+        webSocketNotificationService.notificarClientes(notificacion);
     }
+
 
     @Override
     public InfoReporteDTO obtenerReporte(String id) throws Exception {
@@ -203,7 +240,6 @@ public class ReporteServicioImpl implements ReporteServicio {
         );
         webSocketNotificationService.notificarClientes(notificacionDTO);
     }
-
 }
 
 

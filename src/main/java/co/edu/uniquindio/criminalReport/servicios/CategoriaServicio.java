@@ -12,5 +12,6 @@ public interface CategoriaServicio {
     void editarCategoria(String id, @Valid CrearCategoriaDTO categoria) throws Exception;
     void eliminarCategoria(String id) throws Exception;
     InfocategoriaDTO obtenerCategoria(String id) throws Exception;
-    List<CategoriaDTO> listar();
+    List<CategoriaDTO> listar(String filtro);
 }
+

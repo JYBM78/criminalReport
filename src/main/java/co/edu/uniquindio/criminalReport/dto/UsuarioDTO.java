@@ -7,6 +7,7 @@ public record UsuarioDTO(
     String telefono,
     String email,
     String rol,
-    String estado
+    String estado,
+    int cantidadReportes
 ) {
 }
