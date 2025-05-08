@@ -33,12 +33,22 @@ repositories {
     }
 
     dependencies {
-        implementation("com.cloudinary:cloudinary-http45:1.39.0")
-        implementation("org.simplejavamail:simple-java-mail:8.12.5")
+        implementation("com.cloudinary:cloudinary-http45:1.39.0"){
+            exclude(group = "commons-logging", module = "commons-logging")
+        }
+        implementation("org.simplejavamail:simple-java-mail:8.12.5"){
+            exclude(group = "commons-logging", module = "commons-logging")
+        }
         implementation("org.simplejavamail:batch-module:8.12.5")
-        implementation("org.springframework.boot:spring-boot-starter-mail")
-        implementation("org.springframework.boot:spring-boot-starter-web") // Dependencia para tener acceso a código ya hecho y enjfocarnos más en la parte lógica y no en la configuración del proyecto
-        implementation("org.springframework.boot:spring-boot-starter-websocket")
+        implementation("org.springframework.boot:spring-boot-starter-mail"){
+            exclude(group = "commons-logging", module = "commons-logging")
+        }
+        implementation("org.springframework.boot:spring-boot-starter-web"){ // Dependencia para tener acceso a código ya hecho y enjfocarnos más en la parte lógica y no en la configuración del proyecto
+            exclude(group = "commons-logging", module = "commons-logging")
+        }
+        implementation("org.springframework.boot:spring-boot-starter-websocket"){
+            exclude(group = "commons-logging", module = "commons-logging")
+        }
         implementation("org.springframework.boot:spring-boot-starter-validation") // Dependencia para validaciones
         //implementation("org.springframework.boot:spring-boot-starter-security") // Esta dependencia activa por defecto una seguridad básica con autenticación HTTP (usuario/contraseña) cuando no se configura nada explícitamente.
         implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.0") // Dependencia para @SecurityRequirement(name = "bearerAuth")
@@ -56,6 +66,10 @@ repositories {
 
         implementation("org.projectlombok:lombok")
         annotationProcessor("org.projectlombok:lombok")
+        implementation("org.springframework.boot:spring-boot-starter-security")
+        implementation("io.jsonwebtoken:jjwt-api:0.12.6")
+        runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
+        runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
     }
 
     tasks.withType<Test> {
