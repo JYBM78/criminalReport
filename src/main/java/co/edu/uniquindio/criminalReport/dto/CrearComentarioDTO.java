@@ -8,8 +8,8 @@ public record CrearComentarioDTO(
         String mensaje,
 
         @NotBlank(message = "El ID del cliente No puede estar vacío")
-        String clienteId,
+        String idCliente,
 
         @NotBlank(message = "El ID del reporte No puede estar vacío")
-        String reporteId
+        String idReporte
 ){}

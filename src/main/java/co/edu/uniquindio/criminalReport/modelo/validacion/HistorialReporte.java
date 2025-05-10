@@ -18,5 +18,5 @@ public class HistorialReporte {
     private EstadoReporte estado;
     private String observacion;
     private LocalDateTime fecha;
-    private ObjectId clienteId;
+    private ObjectId idCliente;
 }

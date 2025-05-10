@@ -26,6 +26,6 @@ public class Notificacion {
     private LocalDateTime fecha;
     private TipoNotificacion tipoNotificacion;
     private boolean leida;
-    private ObjectId reporteId;
-    private ObjectId usuarioId;
+    private ObjectId idReporte;
+    private ObjectId idUsuario;
 }

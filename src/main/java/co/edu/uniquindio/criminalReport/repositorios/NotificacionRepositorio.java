@@ -10,9 +10,9 @@ import java.util.List;
 @Repository
 public interface NotificacionRepositorio extends MongoRepository<Notificacion, ObjectId> {
     
-    List<Notificacion> findByUsuarioId(ObjectId usuarioId);
+    List<Notificacion> findByIdUsuario(ObjectId idUsuario);
     
-    List<Notificacion> findByUsuarioIdAndLeida(ObjectId usuarioId, boolean leida);
+    List<Notificacion> findByIdUsuarioAndLeida(ObjectId idUsuario, boolean leida);
     
-    long countByUsuarioIdAndLeida(ObjectId usuarioId, boolean leida);
+    long countByIdUsuarioAndLeida(ObjectId idUsuario, boolean leida);
 }

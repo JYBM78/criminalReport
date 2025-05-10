@@ -220,8 +220,8 @@ public class ReporteServicioImpl implements ReporteServicio {
 
     // Métodos auxiliares
 
-    private Usuario obtenerClienteActivo(String clienteId) {
-        return usuarioRepositorio.findById(clienteId)
+    private Usuario obtenerClienteActivo(String idCliente) {
+        return usuarioRepositorio.findById(idCliente)
                 .filter(usuario -> usuario.getEstado() != EstadoUsuario.ELIMINADO)
                 .orElseThrow(() -> new RuntimeException("Usuario inexistente o inactivo"));
     }

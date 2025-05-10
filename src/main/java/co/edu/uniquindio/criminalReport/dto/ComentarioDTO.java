@@ -7,7 +7,7 @@ public record ComentarioDTO(
          String id,
          String mensaje,
          LocalDateTime fecha,
-         String clienteId,
+         String idCliente,
          String nombreCliente,
-         String reporteId
+         String idReporte
 ){}

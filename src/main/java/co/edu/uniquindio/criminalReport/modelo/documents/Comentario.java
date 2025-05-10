@@ -20,8 +20,8 @@ public class Comentario {
     @EqualsAndHashCode.Include
     private ObjectId id;
 
-    private ObjectId reporteId;
+    private ObjectId idReporte;
     private String mensaje;
     private LocalDateTime fecha;
-    private ObjectId usuarioId;
+    private ObjectId idUsuario;
 }
