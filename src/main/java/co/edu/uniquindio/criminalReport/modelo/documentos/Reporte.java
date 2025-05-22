@@ -45,11 +45,11 @@ public class Reporte {
 
     private List<Comentario> comentarios = new ArrayList<>();
 
-    @Field
-    private Map<String, Integer> calificaciones = new HashMap<>();
+    //@Field
+    //private Map<String, Integer> calificaciones = new HashMap<>();
 
     @Field
-    private double promedioEstrellas;
+    //private double promedioEstrellas;
 
     private String rutaImagenes; // <-- Asegúrate de que esto exista
 }

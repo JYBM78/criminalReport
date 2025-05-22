@@ -35,7 +35,7 @@ public interface ReporteServicio {
 
     List<ReporteDTO> buscarReportes(BuscarReporteDTO filtros) throws Exception;
 
-    void calificarReporte(String idReporte, int estrellas) throws Exception;
+    //void calificarReporte(String idReporte, int estrellas) throws Exception;
 
     List<ReporteDTO> obtenerReportesPorUsuario() throws Exception;
 

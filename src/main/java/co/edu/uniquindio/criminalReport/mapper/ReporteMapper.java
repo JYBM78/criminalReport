@@ -26,9 +26,9 @@ public interface ReporteMapper {
                 reporte.getFechaCreacion(),
                 reporte.getEstado(),
                 geoJsonPointToUbicacionDTO(reporte.getUbicacion()),
-                reporte.getConteoImportante(),
-                reporte.getPromedioEstrellas(),     // <-- Nuevo
-                reporte.getCalificaciones()         // <-- Nuevo
+                reporte.getConteoImportante()
+                //reporte.getPromedioEstrellas(),     // <-- Nuevo
+                //reporte.getCalificaciones()         // <-- Nuevo
         );
     }
 

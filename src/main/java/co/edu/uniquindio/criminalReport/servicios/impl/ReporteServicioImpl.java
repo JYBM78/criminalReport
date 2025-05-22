@@ -402,7 +402,7 @@ public class ReporteServicioImpl implements ReporteServicio {
         return reportes.stream().map(reporteMapper::toDTO).toList();
     }
 
-
+/*
     @Override
     public void calificarReporte(String idReporte, int estrellas) throws Exception {
 
@@ -435,9 +435,11 @@ public class ReporteServicioImpl implements ReporteServicio {
                 .average()
                 .orElse(0.0);
 
-        reporte.setPromedioEstrellas(promedio);
+        //reporte.setPromedioEstrellas(promedio);
         reporteRepo.save(reporte);
     }
+
+ */
 
     @Override
     public List<ReporteDTO> obtenerReportesPorUsuario() throws Exception{

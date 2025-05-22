@@ -13,9 +13,9 @@ public record ReporteDTO(
         LocalDateTime fechaCreacion,
         EstadoReporte estado,
         UbicacionDTO ubicacionDTO,
-        int conteoImportantes,
-        double promedioEstrellas,
-        Map<String, Integer> calificaciones
+        int conteoImportantes
+        //double promedioEstrellas,
+        //Map<String, Integer> calificaciones
 
 ) {}
 

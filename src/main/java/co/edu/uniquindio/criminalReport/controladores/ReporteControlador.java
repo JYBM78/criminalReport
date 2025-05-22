@@ -158,7 +158,7 @@ public class ReporteControlador {
         return ResponseEntity.ok(new MensajeDTO<>(false, "Lista de reportes filtrados obtenida correctamente", resultados));
     }
 
-
+/*
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping("/{id}/calificacion")
     public ResponseEntity<MensajeDTO<String>> calificarReporte(
@@ -171,6 +171,8 @@ public class ReporteControlador {
                 new MensajeDTO<>(false, "Calificación registrada correctamente", null)
         );
     }
+
+ */
 
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/mis-reportes")

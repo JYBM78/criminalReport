@@ -1,3 +1,4 @@
+/*
 package co.edu.uniquindio.criminalReport.dto;
 
 import jakarta.validation.constraints.Max;
@@ -9,3 +10,5 @@ public record CalificacionDTO(
         int estrellas
 ) {}
 
+
+ */
