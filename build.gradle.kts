@@ -74,7 +74,7 @@ plugins {
 
 group = "co.edu.uniquindio"
 version = "0.0.1-SNAPSHOT"
-description = "Aplicación para el reporte de incidentes urbanos"
+description = "Aplicación para el reporte de incidentes ciudadanos"
 
 java {
     toolchain {
