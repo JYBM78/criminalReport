@@ -79,7 +79,7 @@ public class ReporteServicioImpl implements ReporteServicio {
                 .fechaCreacion(crearReporteDTO.fechaCreacion())
                 .estado(crearReporteDTO.estado())
                 .ubicacion(geoPoint)
-                .rutaImagenes(crearReporteDTO.rutaImagenes().toString()) // Descomenta si manejas imágenes
+                .rutaImagenes(crearReporteDTO.rutaImagenes().toString()) // 
                 .build();
 
         webSocketNotificationService.notificarClientes( new NotificacionDTO(
@@ -402,44 +402,7 @@ public class ReporteServicioImpl implements ReporteServicio {
         return reportes.stream().map(reporteMapper::toDTO).toList();
     }
 
-/*
-    @Override
-    public void calificarReporte(String idReporte, int estrellas) throws Exception {
 
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String idUsuario = user.getUsername();
-
-        Reporte reporte = reporteRepo.findById(idReporte)
-                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró el reporte con ID: " + idReporte));
-
-        if (reporte.getUsuarioId().equals(idUsuario)) {
-            throw new ParametroInvalidoException("No puedes calificar tu propio reporte.");
-        }
-
-        if (estrellas < 1 || estrellas > 5) {
-            throw new ValidacionException("La calificación debe estar entre 1 y 5 estrellas.");
-        }
-
-        // Asegurar que el mapa esté inicializado
-        if (reporte.getCalificaciones() == null) {
-            reporte.setCalificaciones(new HashMap<>());
-        }
-
-        // Registrar o actualizar la calificación (el put actualiza la calificacion del cliente si ya esxite)
-        reporte.getCalificaciones().put(idUsuario, estrellas);
-
-        double promedio = reporte.getCalificaciones()
-                .values()
-                .stream()
-                .mapToInt(Integer::intValue)
-                .average()
-                .orElse(0.0);
-
-        //reporte.setPromedioEstrellas(promedio);
-        reporteRepo.save(reporte);
-    }
-
- */
 
     @Override
     public List<ReporteDTO> obtenerReportesPorUsuario() throws Exception{

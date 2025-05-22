@@ -14,8 +14,7 @@ public record ReporteDTO(
         EstadoReporte estado,
         UbicacionDTO ubicacionDTO,
         int conteoImportantes
-        //double promedioEstrellas,
-        //Map<String, Integer> calificaciones
+
 
 ) {}
 

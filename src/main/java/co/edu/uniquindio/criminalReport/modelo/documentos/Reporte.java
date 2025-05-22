@@ -41,15 +41,11 @@ public class Reporte {
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPoint ubicacion;
 
-//    private String rutaImagenes;
+
 
     private List<Comentario> comentarios = new ArrayList<>();
 
-    //@Field
-    //private Map<String, Integer> calificaciones = new HashMap<>();
 
-    @Field
-    //private double promedioEstrellas;
 
     private String rutaImagenes; // <-- Asegúrate de que esto exista
 }

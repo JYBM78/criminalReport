@@ -31,11 +31,11 @@ public interface ReporteServicio {
 
     Page<Reporte> obtenerReportesCercanos(double longitud, double latitud, Pageable pageable);
 
-    //Optional<HistorialEstadoDTO> listarHistorialEstados(String id);
+
 
     List<ReporteDTO> buscarReportes(BuscarReporteDTO filtros) throws Exception;
 
-    //void calificarReporte(String idReporte, int estrellas) throws Exception;
+
 
     List<ReporteDTO> obtenerReportesPorUsuario() throws Exception;
 
