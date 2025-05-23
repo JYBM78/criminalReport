@@ -140,10 +140,12 @@ dependencies {
 
 
 }
-
+/*
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+ */
 
 // Configuración para asegurar que Lombok se procese antes de MapStruct
 tasks.withType<JavaCompile> {
@@ -152,3 +154,4 @@ tasks.withType<JavaCompile> {
         "-Amapstruct.unmappedTargetPolicy=IGNORE"
     )
 }
+
