@@ -1,5 +1,9 @@
 CLUSTER criminalCluster =
+    El cluster es criminalcluster.gljrttd.mongodb.net
+    La base de datos es criminalReport
+
     - mongodb+srv://admin:<db_password>@criminalcluster.gljrttd.mongodb.net/?retryWrites=true&w=majority&appName=criminalCluster
+    - spring.data.mongodb.uri=mongodb+srv://admin:admin1234567@criminalcluster.gljrttd.mongodb.net/criminalReport?retryWrites=true&w=majority&appName=criminalCluster
 
 RENDER
     - https://criminalreport.onrender.com
