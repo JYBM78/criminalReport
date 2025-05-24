@@ -97,6 +97,9 @@ public class SecurityConfig {
                         // Ruta administradores y clientes
                         .requestMatchers(HttpMethod.PUT, "/api/reportes/{id}/estado").permitAll()
 
+                        // Permitir preflight CORS
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // CORS FIX IMPORTANTE
+
 
                         // Todo lo demás requiere autenticación
                         .anyRequest().authenticated()
