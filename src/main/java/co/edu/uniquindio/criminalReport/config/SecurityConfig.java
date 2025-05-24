@@ -117,7 +117,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOrigins(List.of(
-                "http://localhost:4200", // desarrollo local
+                "http://app-frontend-criminalreport-uq.web.app/", // desarrollo local
                 "https://criminalreport.onrender.com", // render backend (si hicieras peticiones de frontend aquí, también lo incluyes)
                 "https://app-frontend-criminalreport-uq.web.app", // Hosting Firebase
                 "https://app-frontend-criminalreport-uq.firebaseapp.com" // también suele ser válido
