@@ -15,7 +15,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").setAllowedOrigins("*").withSockJS(); // Punto final del WebSocket
+        registry.addEndpoint("/ws").setAllowedOrigins(
+                        "https://app-frontend-criminalreport-uq.web.app",
+                        "https://app-frontend-criminalreport-uq.firebaseapp.com",
+                        "http://localhost:4200"
+                )
+                .withSockJS(); // Punto final del WebSocket
     }
 
 
