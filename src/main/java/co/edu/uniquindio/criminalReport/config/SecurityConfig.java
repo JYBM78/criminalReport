@@ -145,7 +145,7 @@ public class SecurityConfig {
         //config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowedHeaders(List.of("*"));
         config.setExposedHeaders(List.of("Authorization"));
-
+o
 
         config.setAllowCredentials(true);
 
