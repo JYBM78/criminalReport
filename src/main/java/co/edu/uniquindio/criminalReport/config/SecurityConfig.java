@@ -132,10 +132,10 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOrigins(List.of(
-                "http://localhost:4200",
-                "https://criminalreport.onrender.com" // si tu frontend se despliega en Firebase, agrega sus URLs
-               // "https://AlertasComunitariasApp.firebaseapp.com",
-               // "https://AlertasComunitariasApp.web.app"
+                "http://localhost:4200",                    // desarrollo local
+                "https://criminalreport.onrender.com",      // backend en Render
+                "https://criminalreport.firebaseapp.com",   // frontend en Firebase
+                "https://criminalreport.web.app"            // otra URL del frontend en Firebase
         ));
 
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

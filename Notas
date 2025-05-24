@@ -3,3 +3,6 @@ CLUSTER criminalCluster =
 
 RENDER
     - https://criminalreport.onrender.com
+
+FIREBASE
+    - app-frontend-criminalreport-uq
